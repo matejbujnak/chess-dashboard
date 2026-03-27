@@ -77,7 +77,7 @@ function DashboardContent({ data }: { data: DashboardData }) {
         <BestWins bestWins={data.bestWins} />
       </div>
 
-      <OpeningsChart openings={data.openings} />
+      <OpeningsChart openings={data.openings} games={data.games} />
       <ActivityHeatmap heatmap={data.heatmap} />
     </div>
   )

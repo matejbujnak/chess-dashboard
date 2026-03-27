@@ -79,6 +79,11 @@ export const translations = {
     topOpenings: "Top otvárania",
     count: "Počet",
     noOpeningData: "Žiadne dáta o otváraniach",
+    clickOpening: "Klikni na otváranie pre detail",
+    asWhite: "Biely ♔",
+    asBlack: "Čierny ♚",
+    monthlyTrend: "Mesačný trend",
+    close: "Zavrieť",
 
     // Activity heatmap
     activityTitle: "Aktivita (deň × hodina)",
@@ -222,6 +227,11 @@ export const translations = {
     topOpenings: "Top Openings",
     count: "Count",
     noOpeningData: "No opening data available",
+    clickOpening: "Click an opening for details",
+    asWhite: "White ♔",
+    asBlack: "Black ♚",
+    monthlyTrend: "Monthly trend",
+    close: "Close",
 
     // Activity heatmap
     activityTitle: "Activity (day × hour)",
@@ -364,6 +374,11 @@ export const translations = {
     topOpenings: "Top-Eröffnungen",
     count: "Anzahl",
     noOpeningData: "Keine Eröffnungsdaten verfügbar",
+    clickOpening: "Eröffnung anklicken für Details",
+    asWhite: "Weiß ♔",
+    asBlack: "Schwarz ♚",
+    monthlyTrend: "Monatlicher Trend",
+    close: "Schließen",
 
     // Activity heatmap
     activityTitle: "Aktivität (Tag × Stunde)",
