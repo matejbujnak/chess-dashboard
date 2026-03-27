@@ -128,6 +128,13 @@ export function normalizeLichessGames(games: LichessGame[], username: string): U
 
       const tc: string = g.clock ? `${g.clock.initial}+${g.clock.increment}` : g.speed
 
+      const lichessTermMap: Record<string, string> = {
+        mate: "mat", resign: "vzdanie", outoftime: "čas", draw: "remíza",
+        stalemate: "pat", aborted: "zrušená", cheat: "podvod",
+        noStart: "nezačatá", variantEnd: "koniec variantu",
+      }
+      const termination = lichessTermMap[g.status] ?? g.status ?? null
+
       return {
         id: g.id,
         platform: "lichess" as const,
@@ -136,6 +143,7 @@ export function normalizeLichessGames(games: LichessGame[], username: string): U
         timeClass: speedToTc[g.speed] ?? "rapid",
         userColor: isWhite ? ("white" as const) : ("black" as const),
         result,
+        termination,
         opponentUsername: opponent.user?.name ?? opponent.user?.id ?? "AI",
         opponentRating: opponent.rating ?? 0,
         userRating: user.rating ?? 0,

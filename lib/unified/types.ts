@@ -34,6 +34,7 @@ export interface UnifiedGame {
   timeClass: TimeControl
   userColor: "white" | "black"
   result: "win" | "loss" | "draw"
+  termination: string | null
   opponentUsername: string
   opponentRating: number
   userRating: number

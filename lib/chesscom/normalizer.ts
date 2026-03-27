@@ -126,7 +126,15 @@ export function normalizeChessComGames(games: ChessComGame[], username: string):
     const user = isWhite ? g.white : g.black
     const opponent = isWhite ? g.black : g.white
     const result =
-      user.result === "win" ? "win" : user.result === "checkmated" || user.result === "timeout" || user.result === "resigned" || user.result === "abandoned" ? "loss" : user.result === "agreed" || user.result === "stalemate" || user.result === "repetition" || user.result === "insufficient" || user.result === "50move" || user.result === "timevsinsufficient" ? "draw" : "draw"
+      user.result === "win" ? "win" : user.result === "checkmated" || user.result === "timeout" || user.result === "resigned" || user.result === "abandoned" ? "loss" : "draw"
+
+    const terminationMap: Record<string, string> = {
+      win: "win", checkmated: "mat", resigned: "vzdanie", timeout: "čas",
+      agreed: "remíza dohodou", stalemate: "pat", repetition: "opakovanie",
+      insufficient: "nedostatočný materiál", "50move": "pravidlo 50 ťahov",
+      timevsinsufficient: "čas vs mat. nedostatočný", abandoned: "opustená",
+    }
+    const termination = terminationMap[user.result] ?? user.result
 
     const { eco, name } = parseOpeningFromEco(g.eco)
 
@@ -140,6 +148,7 @@ export function normalizeChessComGames(games: ChessComGame[], username: string):
       timeClass: tc,
       userColor: isWhite ? "white" : "black",
       result,
+      termination,
       opponentUsername: opponent.username,
       opponentRating: opponent.rating,
       userRating: user.rating,

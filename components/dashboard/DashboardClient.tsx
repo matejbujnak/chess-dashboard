@@ -11,6 +11,11 @@ import { AccuracyChart } from "./AccuracyChart"
 import { BestWins } from "./BestWins"
 import { StatsCards } from "./StatsCards"
 import { TimeControlBreakdown } from "./TimeControlBreakdown"
+import { ColorStats } from "./ColorStats"
+import { GamesPerMonth } from "./GamesPerMonth"
+import { FormChart } from "./FormChart"
+import { TerminationChart } from "./TerminationChart"
+import { OpponentRatingHistogram } from "./OpponentRatingHistogram"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { DashboardData } from "@/lib/unified/types"
 
@@ -58,12 +63,21 @@ function DashboardContent({ data }: { data: DashboardData }) {
         <AccuracyChart games={data.games} />
       </div>
 
-      <OpeningsChart openings={data.openings} />
-      <ActivityHeatmap heatmap={data.heatmap} />
+      <div className="grid gap-6 lg:grid-cols-2">
+        <ColorStats games={data.games} />
+        <TerminationChart games={data.games} />
+      </div>
+
+      <FormChart games={data.games} />
+      <GamesPerMonth games={data.games} />
 
       <div className="grid gap-6 lg:grid-cols-2">
+        <OpponentRatingHistogram games={data.games} />
         <BestWins bestWins={data.bestWins} />
       </div>
+
+      <OpeningsChart openings={data.openings} />
+      <ActivityHeatmap heatmap={data.heatmap} />
     </div>
   )
 }
