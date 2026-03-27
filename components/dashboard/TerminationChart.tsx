@@ -74,7 +74,7 @@ export function TerminationChart({ games }: Props) {
             <div key={item.name} className="flex items-center gap-2">
               <div className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: COLORS[i % COLORS.length] }} />
               <div className="min-w-0">
-                <div className="truncate text-xs text-white capitalize">{item.name}</div>
+                <div className="truncate text-xs text-foreground capitalize">{item.name}</div>
                 <div className="text-xs text-[#4a5568]">
                   {item.value} ({((item.value / total) * 100).toFixed(0)}%)
                 </div>
