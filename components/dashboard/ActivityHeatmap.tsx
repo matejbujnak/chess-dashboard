@@ -1,5 +1,6 @@
 "use client"
 
+import { useTheme } from "next-themes"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import type { HeatmapCell } from "@/lib/unified/types"
 import { useT } from "@/components/LanguageProvider"
@@ -8,18 +9,25 @@ interface Props {
   heatmap: HeatmapCell[]
 }
 
-function getIntensity(count: number, max: number): string {
-  if (count === 0) return "#1a1f2e"
+const DARK_SCALE  = ["#1a1f2e", "#1d3557", "#1a5276", "#1565a0", "#1d6fa5", "#3b82f6"]
+const LIGHT_SCALE = ["#e2e8f0", "#bfdbfe", "#93c5fd", "#60a5fa", "#3b82f6", "#1d4ed8"]
+
+function getIntensity(count: number, max: number, isDark: boolean): string {
+  const scale = isDark ? DARK_SCALE : LIGHT_SCALE
+  if (count === 0) return scale[0]
   const ratio = count / max
-  if (ratio < 0.2) return "#1d3557"
-  if (ratio < 0.4) return "#1a5276"
-  if (ratio < 0.6) return "#1565a0"
-  if (ratio < 0.8) return "#1d6fa5"
-  return "#3b82f6"
+  if (ratio < 0.2) return scale[1]
+  if (ratio < 0.4) return scale[2]
+  if (ratio < 0.6) return scale[3]
+  if (ratio < 0.8) return scale[4]
+  return scale[5]
 }
 
 export function ActivityHeatmap({ heatmap }: Props) {
   const { t } = useT()
+  const { theme } = useTheme()
+  const isDark = theme !== "light"
+  const scale = isDark ? DARK_SCALE : LIGHT_SCALE
   const DAYS = t.days
 
   const max = Math.max(...heatmap.map((c) => c.count), 1)
@@ -68,7 +76,7 @@ export function ActivityHeatmap({ heatmap }: Props) {
                     key={hour}
                     title={`${day} ${hour}:00 — ${count} ${t.games}`}
                     className="aspect-square rounded-[2px] cursor-default"
-                    style={{ background: getIntensity(count, max) }}
+                    style={{ background: getIntensity(count, max, isDark) }}
                   />
                 ))}
               </div>
@@ -78,7 +86,7 @@ export function ActivityHeatmap({ heatmap }: Props) {
           {/* Legend */}
           <div className="mt-3 flex items-center justify-end gap-1 text-[10px] text-subtle">
             <span>{t.less}</span>
-            {["#1a1f2e", "#1d3557", "#1a5276", "#1565a0", "#1d6fa5", "#3b82f6"].map((c) => (
+            {scale.map((c) => (
               <div key={c} className="h-3 w-4 rounded-[2px]" style={{ background: c }} />
             ))}
             <span>{t.more}</span>
