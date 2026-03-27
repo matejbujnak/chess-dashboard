@@ -31,9 +31,9 @@ function deserializeDates(obj: unknown): unknown {
 export function useDashboardData(platform: string, username: string) {
   const key =
     platform === "chesscom"
-      ? `/api/chesscom?username=${encodeURIComponent(username)}`
+      ? `/api/chesscom?username=${encodeURIComponent(username)}&months=12`
       : platform === "lichess"
-      ? `/api/lichess?username=${encodeURIComponent(username)}`
+      ? `/api/lichess?username=${encodeURIComponent(username)}&max=1000`
       : null
 
   const { data, error, isLoading } = useSWR<DashboardData>(key, fetcher, {
@@ -47,12 +47,12 @@ export function useDashboardData(platform: string, username: string) {
 
 export function useBothDashboardData(chesscomUsername: string, lichessUsername: string) {
   const chesscom = useSWR<DashboardData>(
-    `/api/chesscom?username=${encodeURIComponent(chesscomUsername)}`,
+    `/api/chesscom?username=${encodeURIComponent(chesscomUsername)}&months=12`,
     fetcher,
     { revalidateOnFocus: false, dedupingInterval: 3_600_000 }
   )
   const lichess = useSWR<DashboardData>(
-    `/api/lichess?username=${encodeURIComponent(lichessUsername)}`,
+    `/api/lichess?username=${encodeURIComponent(lichessUsername)}&max=1000`,
     fetcher,
     { revalidateOnFocus: false, dedupingInterval: 3_600_000 }
   )
