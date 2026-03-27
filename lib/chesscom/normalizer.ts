@@ -29,15 +29,21 @@ export async function fetchChessComGames(username: string, months = 3): Promise<
   const { archives } = await archRes.json()
   const recent = (archives as string[]).slice(-months)
 
-  const results = await Promise.allSettled(
-    recent.map((url) =>
-      fetch(url, { headers: { "User-Agent": UA } }).then((r) => r.json())
-    )
-  )
+  const results: { games: ChessComGame[] }[] = []
+  
+  for (const url of recent) {
+    try {
+      const r = await fetch(url, { headers: { "User-Agent": UA } })
+      if (r.ok) {
+        const json = await r.json()
+        results.push(json)
+      }
+    } catch {
+      // ignore individual month failure
+    }
+  }
 
-  return results
-    .filter((r): r is PromiseFulfilledResult<{ games: ChessComGame[] }> => r.status === "fulfilled")
-    .flatMap((r) => r.value.games ?? [])
+  return results.flatMap((r) => r.games ?? [])
 }
 
 function parseOpeningFromEco(ecoUrl?: string): { eco: string | null; name: string | null } {

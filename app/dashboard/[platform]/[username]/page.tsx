@@ -2,6 +2,9 @@ import { DashboardClient } from "@/components/dashboard/DashboardClient"
 import { ThemeToggle } from "@/components/ThemeToggle"
 import { LanguageToggle } from "@/components/LanguageToggle"
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader"
+import { CopyLinkButton } from "@/components/CopyLinkButton"
+import { TimeControlFilter } from "@/components/TimeControlFilter"
+import { Suspense } from "react"
 
 interface Props {
   params: Promise<{ platform: string; username: string }>
@@ -43,8 +46,20 @@ export default async function DashboardPage({ params }: Props) {
           </a>
           <div className="flex items-center gap-3">
             <DashboardHeader platform={platform} displayUsername={displayUsername} />
-            <LanguageToggle />
-            <ThemeToggle />
+            <Suspense fallback={<div className="w-24 h-8 bg-surface rounded-lg animate-pulse" />}>
+              <TimeControlFilter />
+            </Suspense>
+            <div className="hidden sm:flex items-center gap-2">
+              <CopyLinkButton />
+              <LanguageToggle />
+              <ThemeToggle />
+            </div>
+            {/* Mobile menu could be here, but for now just show icons */}
+            <div className="flex sm:hidden items-center gap-2">
+              <CopyLinkButton />
+              <LanguageToggle />
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </header>

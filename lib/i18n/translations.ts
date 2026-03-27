@@ -131,6 +131,19 @@ export const translations = {
     noGames: "Žiadne partii",
     noActivity: "Žiadna aktivita",
 
+    // Header actions
+    copyLink: "Skopírovať odkaz",
+    copied: "Skopírované!",
+    timeControlAll: "Všetky",
+
+    // Error pages
+    stalemateTitle: "Pat!",
+    pageNotFound: "Stránka sa nenašla.",
+    backHome: "Späť domov",
+    checkmateTitle: "Šach mat!",
+    errorOccurred: "Nastala neočakávaná chyba.",
+    tryAgain: "Skúsiť znova",
+
     // Termination types
     terminations: {
       checkmate: "Mat",
@@ -279,6 +292,19 @@ export const translations = {
     noGames: "No games",
     noActivity: "No activity",
 
+    // Header actions
+    copyLink: "Copy link",
+    copied: "Copied!",
+    timeControlAll: "All",
+
+    // Error pages
+    stalemateTitle: "Stalemate!",
+    pageNotFound: "Page not found.",
+    backHome: "Back to home",
+    checkmateTitle: "Checkmate!",
+    errorOccurred: "An unexpected error occurred.",
+    tryAgain: "Try again",
+
     // Termination types
     terminations: {
       checkmate: "Checkmate",
@@ -425,6 +451,19 @@ export const translations = {
     noData: "Keine Daten",
     noGames: "Keine Partien",
     noActivity: "Keine Aktivität",
+
+    // Header actions
+    copyLink: "Link kopieren",
+    copied: "Kopiert!",
+    timeControlAll: "Alle",
+
+    // Error pages
+    stalemateTitle: "Patt!",
+    pageNotFound: "Seite nicht gefunden.",
+    backHome: "Zurück zur Startseite",
+    checkmateTitle: "Schachmatt!",
+    errorOccurred: "Ein unerwarteter Fehler ist aufgetreten.",
+    tryAgain: "Erneut versuchen",
 
     // Termination types
     terminations: {

@@ -1,7 +1,10 @@
 import { CompareClient } from "@/components/compare/CompareClient"
 import { ThemeToggle } from "@/components/ThemeToggle"
 import { LanguageToggle } from "@/components/LanguageToggle"
+import { CopyLinkButton } from "@/components/CopyLinkButton"
+import { TimeControlFilter } from "@/components/TimeControlFilter"
 import { BackLink } from "@/components/BackLink"
+import { Suspense } from "react"
 
 interface Props {
   params: Promise<{ platform: string; slug: string }>
@@ -53,6 +56,10 @@ export default async function ComparePage({ params }: Props) {
             {players.a.username} vs {players.b.username}
           </span>
           <div className="flex items-center gap-2">
+            <Suspense fallback={<div className="w-24 h-8 bg-surface rounded-lg animate-pulse" />}>
+              <TimeControlFilter />
+            </Suspense>
+            <CopyLinkButton />
             <ThemeToggle />
             <LanguageToggle />
           </div>

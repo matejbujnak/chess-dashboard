@@ -5,6 +5,7 @@ export async function fetchLichessUser(username: string): Promise<LichessUser> {
   const res = await fetch(`https://lichess.org/api/user/${username}`, {
     headers: { Accept: "application/json" },
     next: { revalidate: 3600 },
+    signal: AbortSignal.timeout(8000),
   })
   if (!res.ok) throw new Error(`Lichess user not found: ${username}`)
   return res.json()
@@ -14,6 +15,7 @@ export async function fetchLichessRatingHistory(username: string): Promise<Liche
   const res = await fetch(`https://lichess.org/api/user/${username}/rating-history`, {
     headers: { Accept: "application/json" },
     next: { revalidate: 3600 },
+    signal: AbortSignal.timeout(8000),
   })
   if (!res.ok) throw new Error(`Lichess rating history not found`)
   return res.json()
@@ -24,6 +26,7 @@ export async function fetchLichessGames(username: string, max = 300): Promise<Li
     `https://lichess.org/api/games/user/${username}?max=${max}&opening=true&moves=false&clocks=false&evals=false`,
     {
       headers: { Accept: "application/x-ndjson" },
+      signal: AbortSignal.timeout(15000),
     }
   )
   if (!res.ok) throw new Error(`Lichess games not found`)

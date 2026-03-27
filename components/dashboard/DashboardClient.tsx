@@ -1,6 +1,15 @@
 "use client"
 
+import { useMemo, Suspense } from "react"
+import { useSearchParams } from "next/navigation"
 import { useDashboardData, useBothDashboardData } from "@/hooks/useDashboardData"
+import {
+  processOpenings,
+  processHeatmap,
+  processBestWins,
+  processStreaks,
+  buildRatingHistoryFromGames
+} from "@/lib/unified/processors"
 import { ProfileCard } from "./ProfileCard"
 import { RatingsOverview } from "./RatingsOverview"
 import { RatingHistoryChart } from "./RatingHistoryChart"
@@ -47,39 +56,65 @@ function LoadingSkeleton() {
   )
 }
 
-function DashboardContent({ data }: { data: DashboardData }) {
+function DashboardContentInner({ data }: { data: DashboardData }) {
+  const searchParams = useSearchParams()
+  const tc = searchParams.get("tc")
+
+  const filtered = useMemo(() => {
+    if (!tc || tc === "all") return data
+
+    const games = data.games.filter((g) => g.timeClass === tc)
+    return {
+      ...data,
+      games,
+      ratingHistory: buildRatingHistoryFromGames(games),
+      openings: processOpenings(games),
+      heatmap: processHeatmap(games),
+      bestWins: processBestWins(games),
+      streaks: processStreaks(games),
+    }
+  }, [data, tc])
+
   return (
     <div className="space-y-6">
-      <ProfileCard player={data.player} />
-      <StatsCards data={data} />
-      <RatingsOverview ratings={data.ratings} />
+      <ProfileCard player={filtered.player} />
+      <StatsCards data={filtered} />
+      <RatingsOverview ratings={filtered.ratings} />
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <RatingHistoryChart ratingHistory={data.ratingHistory} />
-        <WinLossChart games={data.games} />
+        <RatingHistoryChart ratingHistory={filtered.ratingHistory} />
+        <WinLossChart games={filtered.games} />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <TimeControlBreakdown games={data.games} />
-        <AccuracyChart games={data.games} />
+        <TimeControlBreakdown games={filtered.games} />
+        <AccuracyChart games={filtered.games} />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <ColorStats games={data.games} />
-        <TerminationChart games={data.games} />
+        <ColorStats games={filtered.games} />
+        <TerminationChart games={filtered.games} />
       </div>
 
-      <FormChart games={data.games} />
-      <GamesPerMonth games={data.games} />
+      <FormChart games={filtered.games} />
+      <GamesPerMonth games={filtered.games} />
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <OpponentRatingHistogram games={data.games} />
-        <BestWins bestWins={data.bestWins} />
+        <OpponentRatingHistogram games={filtered.games} />
+        <BestWins bestWins={filtered.bestWins} />
       </div>
 
-      <OpeningsChart openings={data.openings} games={data.games} />
-      <ActivityHeatmap heatmap={data.heatmap} />
+      <OpeningsChart openings={filtered.openings} games={filtered.games} />
+      <ActivityHeatmap heatmap={filtered.heatmap} />
     </div>
+  )
+}
+
+function DashboardContent({ data }: { data: DashboardData }) {
+  return (
+    <Suspense fallback={<LoadingSkeleton />}>
+      <DashboardContentInner data={data} />
+    </Suspense>
   )
 }
 

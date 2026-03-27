@@ -33,7 +33,7 @@ export function useDashboardData(platform: string, username: string) {
     platform === "chesscom"
       ? `/api/chesscom?username=${encodeURIComponent(username)}&months=12`
       : platform === "lichess"
-      ? `/api/lichess?username=${encodeURIComponent(username)}&max=1000`
+      ? `/api/lichess?username=${encodeURIComponent(username)}&max=300`
       : null
 
   const { data, error, isLoading } = useSWR<DashboardData>(key, fetcher, {
@@ -52,7 +52,7 @@ export function useBothDashboardData(chesscomUsername: string, lichessUsername: 
     { revalidateOnFocus: false, dedupingInterval: 3_600_000 }
   )
   const lichess = useSWR<DashboardData>(
-    `/api/lichess?username=${encodeURIComponent(lichessUsername)}&max=1000`,
+    `/api/lichess?username=${encodeURIComponent(lichessUsername)}&max=300`,
     fetcher,
     { revalidateOnFocus: false, dedupingInterval: 3_600_000 }
   )
