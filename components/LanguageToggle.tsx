@@ -7,6 +7,7 @@ import type { Lang } from "@/lib/i18n/translations"
 const LANGUAGES: { code: Lang; label: string; flag: string }[] = [
   { code: "sk", label: "Slovenčina", flag: "🇸🇰" },
   { code: "en", label: "English",    flag: "🇬🇧" },
+  { code: "de", label: "Deutsch",    flag: "🇩🇪" },
 ]
 
 export function LanguageToggle() {

@@ -284,6 +284,148 @@ export const translations = {
       cheat: "Cheating",
     } as Record<string, string>,
   },
+  de: {
+    // Landing
+    tagline: "Analysiere deine Schachhistorie von Chess.com oder Lichess. Diagramme, Statistiken, Eröffnungen — alles an einem Ort.",
+    featureRating: "Ratingverlauf",
+    featureOpenings: "Eröffnungen",
+    featureHeatmap: "Aktivitätskarte",
+
+    // Platform selector
+    bothPlatforms: "Beide Plattformen",
+    chesscomUsername: "Chess.com Benutzername",
+    lichessUsername: "Lichess Benutzername",
+    placeholderChesscom: "z. B. hikaru",
+    placeholderLichess: "z. B. DrNykterstein",
+    loading: "Lädt...",
+    showDashboard: "Dashboard anzeigen →",
+    publicData: "Öffentliche Daten, keine Anmeldung erforderlich",
+
+    // Header / platform labels
+    platformChesscom: "Chess.com",
+    platformLichess: "Lichess",
+    platformBoth: "Chess.com & Lichess",
+
+    // Profile card
+    memberSince: "Mitglied seit",
+    followers: "Follower",
+    lastOnline: "Zuletzt online",
+    online: "Online",
+    profileLink: "Profil →",
+
+    // Ratings overview
+    ratingsOverview: "Rating-Übersicht",
+    games: "Partien",
+    bestRating: "Bestes",
+
+    // Stats cards
+    totalGames: "Partien gesamt",
+    wins: "Siege",
+    losses: "Niederlagen",
+    draws: "Remisen",
+    winStreak: "Siegesserie",
+    unbeatenStreak: "Ungeschlagen-Serie",
+    avgAccuracy: "Ø Genauigkeit",
+
+    // Rating history
+    ratingHistory: "Ratingverlauf",
+    rangeAll: "Alle",
+    rangeYear: "1J",
+    notEnoughData: "Nicht genug Daten für den gewählten Zeitraum",
+
+    // Win/Loss chart
+    gameResults: "Partieergebnisse",
+
+    // Color stats
+    whiteVsBlack: "Weiß vs. Schwarz",
+    white: "Weiß ♔",
+    black: "Schwarz ♚",
+
+    // Time control
+    resultsByTimeControl: "Ergebnisse nach Zeitkontrolle",
+
+    // Accuracy
+    moveAccuracy: "Zuggenauigkeit",
+    average: "Durchschnitt",
+    accuracyChesscomOnly: "Genauigkeitsdaten nur für Chess.com verfügbar",
+
+    // Form chart
+    formTitle: "Form (gleitende Gewinnrate)",
+    formGames: "Partien",
+    formCurrent: "Aktuell",
+    notEnoughGames: "Nicht genug Partien zur Formberechnung",
+    winRateLast: "Gewinnrate (letzte",
+
+    // Games per month
+    gamesPerMonth: "Partien pro Monat",
+    mostActive: "Am aktivsten",
+
+    // Openings
+    topOpenings: "Top-Eröffnungen",
+    count: "Anzahl",
+    noOpeningData: "Keine Eröffnungsdaten verfügbar",
+
+    // Activity heatmap
+    activityTitle: "Aktivität (Tag × Stunde)",
+    less: "Weniger",
+    more: "Mehr",
+    days: ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
+
+    // Best wins
+    bestWins: "Beste Siege",
+    byOpponentRating: "Nach Gegner-Rating",
+    noWins: "Keine Siege gefunden",
+
+    // Termination chart
+    howGamesEnd: "Wie Partien enden",
+
+    // Opponent ratings
+    opponentRatings: "Gegner-Ratings",
+    myAverage: "Mein Durchschnitt",
+    opponentsAverage: "Gegner-Durchschnitt",
+
+    // Compare
+    compare: "Vergleich ⚔️",
+    compareTitle: "Spielervergleich",
+    player1: "Spieler 1",
+    player2: "Spieler 2",
+    showComparison: "Vergleichen →",
+    vsLabel: "vs",
+    radarTitle: "Gesamtvergleich",
+    ratingCompareTitle: "Ratings nach Zeitkontrolle",
+    ratingHistoryCompare: "Ratingverlauf — Vergleich",
+    winLossCompare: "Ergebnisse",
+    openingsCompare: "Top-Eröffnungen",
+    winRate: "Gewinnrate",
+    drawRate: "Remis %",
+    accuracy: "Genauigkeit",
+    activity: "Aktivität",
+    gamesPlayed: "Partien",
+    noRating: "—",
+    advantage: "Vorteil",
+
+    // Error / loading
+    playerNotFound: "Spieler nicht gefunden",
+    back: "← Zurück",
+    noData: "Keine Daten",
+    noGames: "Keine Partien",
+    noActivity: "Keine Aktivität",
+
+    // Termination types
+    terminations: {
+      checkmate: "Schachmatt",
+      resignation: "Aufgabe",
+      timeout: "Zeit",
+      draw: "Remis",
+      stalemate: "Patt",
+      repetition: "Stellungswiederholung",
+      "insufficient material": "Unzureichendes Material",
+      "50-move rule": "50-Züge-Regel",
+      abandoned: "Abgebrochen",
+      aborted: "Annulliert",
+      cheat: "Schummeln",
+    } as Record<string, string>,
+  },
 } as const
 
 export type Lang = keyof typeof translations
