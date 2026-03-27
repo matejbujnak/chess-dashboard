@@ -1,7 +1,10 @@
+"use client"
+
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { formatDate } from "@/lib/utils"
 import type { BestWin } from "@/lib/unified/types"
+import { useT } from "@/components/LanguageProvider"
 
 interface Props {
   bestWins: BestWin[]
@@ -16,11 +19,13 @@ const TC_ICONS: Record<string, string> = {
 }
 
 export function BestWins({ bestWins }: Props) {
+  const { t } = useT()
+
   if (bestWins.length === 0) {
     return (
       <Card>
-        <CardHeader><CardTitle>Najlepšie výhry</CardTitle></CardHeader>
-        <p className="text-center text-sm text-subtle py-8">Žiadne výhry</p>
+        <CardHeader><CardTitle>🏆 {t.bestWins}</CardTitle></CardHeader>
+        <p className="text-center text-sm text-subtle py-8">{t.noWins}</p>
       </Card>
     )
   }
@@ -28,8 +33,8 @@ export function BestWins({ bestWins }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>🏆 Najlepšie výhry</CardTitle>
-        <span className="text-xs text-subtle">Podľa ratingu súpera</span>
+        <CardTitle>🏆 {t.bestWins}</CardTitle>
+        <span className="text-xs text-subtle">{t.byOpponentRating}</span>
       </CardHeader>
       <div className="space-y-2">
         {bestWins.slice(0, 8).map((win, i) => (

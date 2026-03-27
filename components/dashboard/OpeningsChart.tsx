@@ -4,12 +4,14 @@ import { useState } from "react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import type { OpeningStat } from "@/lib/unified/types"
+import { useT } from "@/components/LanguageProvider"
 
 interface Props {
   openings: OpeningStat[]
 }
 
 export function OpeningsChart({ openings }: Props) {
+  const { t } = useT()
   const [view, setView] = useState<"games" | "winrate">("games")
   const top10 = openings.slice(0, 10)
 
@@ -27,8 +29,8 @@ export function OpeningsChart({ openings }: Props) {
   if (openings.length === 0) {
     return (
       <Card>
-        <CardHeader><CardTitle>Otvárania</CardTitle></CardHeader>
-        <p className="text-center text-sm text-[#4a5568] py-8">Žiadne dáta o otváraniach</p>
+        <CardHeader><CardTitle>♟ {t.topOpenings}</CardTitle></CardHeader>
+        <p className="text-center text-sm text-[#4a5568] py-8">{t.noOpeningData}</p>
       </Card>
     )
   }
@@ -36,7 +38,7 @@ export function OpeningsChart({ openings }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>♟ Top otvárania</CardTitle>
+        <CardTitle>♟ {t.topOpenings}</CardTitle>
         <div className="flex gap-2">
           {(["games", "winrate"] as const).map((v) => (
             <button
@@ -49,7 +51,7 @@ export function OpeningsChart({ openings }: Props) {
                 border: `1px solid ${view === v ? "#3b82f6" : "#2d3748"}`,
               }}
             >
-              {v === "games" ? "Počet" : "Win%"}
+              {v === "games" ? t.count : "Win%"}
             </button>
           ))}
         </div>
@@ -73,7 +75,7 @@ export function OpeningsChart({ openings }: Props) {
               contentStyle={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--foreground)" }}
               labelFormatter={(_, payload) => payload?.[0]?.payload?.fullName ?? ""}
               formatter={(value, name) =>
-                view === "winrate" ? [`${value}%`, "Win rate"] : [value, "Partií"]
+                view === "winrate" ? [`${value}%`, "Win rate"] : [value, t.count]
               }
             />
             <Bar

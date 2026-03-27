@@ -4,6 +4,7 @@ import { useState } from "react"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import type { UnifiedGame } from "@/lib/unified/types"
+import { useT } from "@/components/LanguageProvider"
 
 interface Props {
   games: UnifiedGame[]
@@ -30,6 +31,7 @@ function buildFormData(games: UnifiedGame[], window: number) {
 }
 
 export function FormChart({ games }: Props) {
+  const { t } = useT()
   const [window, setWindow] = useState(20)
 
   const data = buildFormData(games, window)
@@ -39,8 +41,8 @@ export function FormChart({ games }: Props) {
   if (games.length < 10) {
     return (
       <Card>
-        <CardHeader><CardTitle>📊 Forma</CardTitle></CardHeader>
-        <p className="text-center text-sm text-[#4a5568] py-8">Málo partií pre výpočet formy</p>
+        <CardHeader><CardTitle>📊 {t.formTitle}</CardTitle></CardHeader>
+        <p className="text-center text-sm text-[#4a5568] py-8">{t.notEnoughGames}</p>
       </Card>
     )
   }
@@ -48,7 +50,7 @@ export function FormChart({ games }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>📊 Forma (rolling win rate)</CardTitle>
+        <CardTitle>📊 {t.formTitle}</CardTitle>
         <div className="flex items-center gap-3">
           <div className="flex gap-1">
             {WINDOWS.map((w) => (
@@ -62,12 +64,12 @@ export function FormChart({ games }: Props) {
                   border: `1px solid ${window === w ? "#3b82f6" : "#2d3748"}`,
                 }}
               >
-                {w} hier
+                {w} {t.formGames}
               </button>
             ))}
           </div>
           <span className="text-xs">
-            <span className="text-[#a0aec0]">Aktuálne: </span>
+            <span className="text-[#a0aec0]">{t.formCurrent}: </span>
             <span className="font-bold" style={{ color: lastWr >= 50 ? "#10b981" : "#ef4444" }}>
               {lastWr}%
             </span>
@@ -88,7 +90,7 @@ export function FormChart({ games }: Props) {
             <ReferenceLine y={50} stroke="#4a5568" strokeDasharray="5 5" />
             <Tooltip
               contentStyle={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--foreground)" }}
-              formatter={(v) => [`${v}%`, `Win rate (posl. ${window})`]}
+              formatter={(v) => [`${v}%`, `${t.winRateLast} ${window})`]}
               labelStyle={{ color: "var(--muted)" }}
             />
             <Line

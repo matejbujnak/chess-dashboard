@@ -3,11 +3,13 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
+import { useT } from "@/components/LanguageProvider"
 
 type Platform = "chesscom" | "lichess" | "both"
 
 export function PlatformSelector() {
   const router = useRouter()
+  const { t } = useT()
   const [platform, setPlatform] = useState<Platform>("chesscom")
   const [username, setUsername] = useState("")
   const [usernameChesscom, setUsernameChesscom] = useState("")
@@ -27,16 +29,15 @@ export function PlatformSelector() {
   }
 
   const tabs: { id: Platform; label: string; color: string; icon: string }[] = [
-    { id: "chesscom", label: "Chess.com", color: "#7fa650", icon: "♟" },
-    { id: "lichess",  label: "Lichess",   color: "#b58863", icon: "♞" },
-    { id: "both",     label: "Obe platformy", color: "#3b82f6", icon: "⚡" },
+    { id: "chesscom", label: "Chess.com",    color: "#7fa650", icon: "♟" },
+    { id: "lichess",  label: "Lichess",      color: "#b58863", icon: "♞" },
+    { id: "both",     label: t.bothPlatforms, color: "#3b82f6", icon: "⚡" },
   ]
 
   const activeColor = tabs.find((t) => t.id === platform)?.color ?? "#3b82f6"
 
   return (
     <div className="w-full max-w-md">
-      {/* Tab selector */}
       <div className="mb-6 flex rounded-xl border border-border bg-surface p-1">
         {tabs.map((tab) => (
           <button
@@ -54,28 +55,27 @@ export function PlatformSelector() {
         ))}
       </div>
 
-      {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-3">
         {platform === "both" ? (
           <>
             <div>
-              <label className="mb-1.5 block text-sm text-muted">Chess.com meno</label>
+              <label className="mb-1.5 block text-sm text-muted">{t.chesscomUsername}</label>
               <input
                 type="text"
                 value={usernameChesscom}
                 onChange={(e) => setUsernameChesscom(e.target.value)}
-                placeholder="napr. hikaru"
+                placeholder={t.placeholderChesscom}
                 className="w-full rounded-lg border border-border bg-surface-alt px-4 py-3 text-foreground placeholder-subtle outline-none focus:border-chesscom transition-colors"
                 required
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm text-muted">Lichess meno</label>
+              <label className="mb-1.5 block text-sm text-muted">{t.lichessUsername}</label>
               <input
                 type="text"
                 value={usernameLichess}
                 onChange={(e) => setUsernameLichess(e.target.value)}
-                placeholder="napr. DrNykterstein"
+                placeholder={t.placeholderLichess}
                 className="w-full rounded-lg border border-border bg-surface-alt px-4 py-3 text-foreground placeholder-subtle outline-none focus:border-lichess transition-colors"
                 required
               />
@@ -84,13 +84,13 @@ export function PlatformSelector() {
         ) : (
           <div>
             <label className="mb-1.5 block text-sm text-muted">
-              {platform === "chesscom" ? "Chess.com" : "Lichess"} meno
+              {platform === "chesscom" ? t.chesscomUsername : t.lichessUsername}
             </label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder={platform === "chesscom" ? "napr. hikaru" : "napr. DrNykterstein"}
+              placeholder={platform === "chesscom" ? t.placeholderChesscom : t.placeholderLichess}
               className="w-full rounded-lg border border-border bg-surface-alt px-4 py-3 text-foreground placeholder-subtle outline-none transition-colors"
               onFocus={(e) => (e.target.style.borderColor = activeColor)}
               onBlur={(e) => (e.target.style.borderColor = "")}
@@ -105,13 +105,11 @@ export function PlatformSelector() {
           className="w-full rounded-lg py-3 text-sm font-semibold text-white transition-all disabled:opacity-60 hover:opacity-90 active:scale-95"
           style={{ background: `linear-gradient(135deg, ${activeColor}, ${activeColor}bb)` }}
         >
-          {loading ? "Načítavam..." : "Zobraziť dashboard →"}
+          {loading ? t.loading : t.showDashboard}
         </button>
       </form>
 
-      <p className="mt-4 text-center text-xs text-subtle">
-        Verejné dáta, nevyžaduje prihlásenie
-      </p>
+      <p className="mt-4 text-center text-xs text-subtle">{t.publicData}</p>
     </div>
   )
 }

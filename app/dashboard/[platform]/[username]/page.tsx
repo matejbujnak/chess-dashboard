@@ -1,5 +1,7 @@
 import { DashboardClient } from "@/components/dashboard/DashboardClient"
 import { ThemeToggle } from "@/components/ThemeToggle"
+import { LanguageToggle } from "@/components/LanguageToggle"
+import { DashboardHeader } from "@/components/dashboard/DashboardHeader"
 
 interface Props {
   params: Promise<{ platform: string; username: string }>
@@ -10,7 +12,7 @@ export async function generateMetadata({ params }: Props) {
   const displayName = platform === "both" ? username.replace("--", " & ") : username
   return {
     title: `${displayName} — Chess Dashboard`,
-    description: `Šachové štatistiky pre ${displayName}`,
+    description: `Chess statistics for ${displayName}`,
   }
 }
 
@@ -26,8 +28,10 @@ export default async function DashboardPage({ params }: Props) {
     lichessUsername = decodeURIComponent(parts[1] ?? "")
   }
 
-  const platformLabel =
-    platform === "chesscom" ? "Chess.com" : platform === "lichess" ? "Lichess" : "Chess.com & Lichess"
+  const displayUsername =
+    platform === "both"
+      ? `${chesscomUsername} & ${lichessUsername}`
+      : decodeURIComponent(username)
 
   return (
     <div className="min-h-screen bg-background">
@@ -38,15 +42,8 @@ export default async function DashboardPage({ params }: Props) {
             <span className="font-semibold">Chess Dashboard</span>
           </a>
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 text-sm text-muted">
-              <span>{platformLabel}</span>
-              <span className="text-border">·</span>
-              <span className="font-medium text-foreground">
-                {platform === "both"
-                  ? `${chesscomUsername} & ${lichessUsername}`
-                  : decodeURIComponent(username)}
-              </span>
-            </div>
+            <DashboardHeader platform={platform} displayUsername={displayUsername} />
+            <LanguageToggle />
             <ThemeToggle />
           </div>
         </div>

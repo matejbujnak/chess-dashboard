@@ -1,15 +1,18 @@
 "use client"
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts"
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import type { UnifiedGame } from "@/lib/unified/types"
 import { format } from "date-fns"
+import { useT } from "@/components/LanguageProvider"
 
 interface Props {
   games: UnifiedGame[]
 }
 
 export function GamesPerMonth({ games }: Props) {
+  const { t } = useT()
+
   const byMonth = new Map<string, { wins: number; losses: number; draws: number; ts: number }>()
 
   for (const g of games) {
@@ -26,17 +29,17 @@ export function GamesPerMonth({ games }: Props) {
     .sort(([, a], [, b]) => a.ts - b.ts)
     .map(([month, v]) => ({
       month,
-      Výhry: v.wins,
-      Remízy: v.draws,
-      Prehry: v.losses,
+      wins: v.wins,
+      draws: v.draws,
+      losses: v.losses,
       total: v.wins + v.losses + v.draws,
     }))
 
   if (data.length === 0) {
     return (
       <Card>
-        <CardHeader><CardTitle>📅 Hry za mesiac</CardTitle></CardHeader>
-        <p className="text-center text-sm text-[#4a5568] py-8">Žiadne dáta</p>
+        <CardHeader><CardTitle>📅 {t.gamesPerMonth}</CardTitle></CardHeader>
+        <p className="text-center text-sm text-[#4a5568] py-8">{t.noData}</p>
       </Card>
     )
   }
@@ -46,9 +49,9 @@ export function GamesPerMonth({ games }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>📅 Hry za mesiac</CardTitle>
+        <CardTitle>📅 {t.gamesPerMonth}</CardTitle>
         <span className="text-xs text-[#4a5568]">
-          Najaktívnejší: <span className="text-white">{data.find((d) => d.total === maxTotal)?.month}</span> ({maxTotal} partií)
+          {t.mostActive}: <span className="text-white">{data.find((d) => d.total === maxTotal)?.month}</span> ({maxTotal} {t.games})
         </span>
       </CardHeader>
       <div className="h-56">
@@ -60,9 +63,10 @@ export function GamesPerMonth({ games }: Props) {
             <Tooltip
               contentStyle={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--foreground)" }}
             />
-            <Bar dataKey="Výhry" fill="#10b981" stackId="a" />
-            <Bar dataKey="Remízy" fill="#a0aec0" stackId="a" />
-            <Bar dataKey="Prehry" fill="#ef4444" stackId="a" radius={[4, 4, 0, 0]} />
+            <Legend wrapperStyle={{ fontSize: 12 }} />
+            <Bar dataKey="wins" name={t.wins} fill="#10b981" stackId="a" />
+            <Bar dataKey="draws" name={t.draws} fill="#a0aec0" stackId="a" />
+            <Bar dataKey="losses" name={t.losses} fill="#ef4444" stackId="a" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

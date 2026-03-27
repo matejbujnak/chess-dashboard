@@ -1,21 +1,24 @@
 "use client"
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts"
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import type { UnifiedGame } from "@/lib/unified/types"
+import { useT } from "@/components/LanguageProvider"
 
 interface Props {
   games: UnifiedGame[]
 }
 
 export function OpponentRatingHistogram({ games }: Props) {
+  const { t } = useT()
+
   const rated = games.filter((g) => g.opponentRating > 0)
 
   if (rated.length === 0) {
     return (
       <Card>
-        <CardHeader><CardTitle>Súperi podľa ratingu</CardTitle></CardHeader>
-        <p className="text-center text-sm text-[#4a5568] py-8">Žiadne dáta</p>
+        <CardHeader><CardTitle>🎯 {t.opponentRatings}</CardTitle></CardHeader>
+        <p className="text-center text-sm text-[#4a5568] py-8">{t.noData}</p>
       </Card>
     )
   }
@@ -44,9 +47,9 @@ export function OpponentRatingHistogram({ games }: Props) {
     .sort(([a], [b]) => a - b)
     .map(([rating, v]) => ({
       range: `${rating}`,
-      Výhry: v.wins,
-      Remízy: v.draws,
-      Prehry: v.losses,
+      wins: v.wins,
+      draws: v.draws,
+      losses: v.losses,
       total: v.wins + v.losses + v.draws,
     }))
     .filter((d) => d.total > 0)
@@ -57,10 +60,10 @@ export function OpponentRatingHistogram({ games }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>🎯 Úroveň súperov</CardTitle>
+        <CardTitle>🎯 {t.opponentRatings}</CardTitle>
         <div className="flex gap-3 text-xs text-[#a0aec0]">
-          <span>Môj priemer: <span className="font-bold text-white">{myAvg}</span></span>
-          <span>Súperi priemer: <span className="font-bold text-white">{avgOpponent}</span></span>
+          <span>{t.myAverage}: <span className="font-bold text-white">{myAvg}</span></span>
+          <span>{t.opponentsAverage}: <span className="font-bold text-white">{avgOpponent}</span></span>
         </div>
       </CardHeader>
       <div className="h-56">
@@ -77,9 +80,10 @@ export function OpponentRatingHistogram({ games }: Props) {
               contentStyle={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--foreground)" }}
               labelFormatter={(v) => `Rating ${v}–${Number(v) + bucketSize - 1}`}
             />
-            <Bar dataKey="Výhry" fill="#10b981" stackId="a" />
-            <Bar dataKey="Remízy" fill="#a0aec0" stackId="a" />
-            <Bar dataKey="Prehry" fill="#ef4444" stackId="a" radius={[4, 4, 0, 0]} />
+            <Legend wrapperStyle={{ fontSize: 12 }} />
+            <Bar dataKey="wins" name={t.wins} fill="#10b981" stackId="a" />
+            <Bar dataKey="draws" name={t.draws} fill="#a0aec0" stackId="a" />
+            <Bar dataKey="losses" name={t.losses} fill="#ef4444" stackId="a" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

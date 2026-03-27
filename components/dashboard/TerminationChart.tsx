@@ -1,8 +1,9 @@
 "use client"
 
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts"
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import type { UnifiedGame } from "@/lib/unified/types"
+import { useT } from "@/components/LanguageProvider"
 
 interface Props {
   games: UnifiedGame[]
@@ -14,6 +15,8 @@ const COLORS = [
 ]
 
 export function TerminationChart({ games }: Props) {
+  const { t } = useT()
+
   const counts = new Map<string, number>()
 
   for (const g of games) {
@@ -23,13 +26,13 @@ export function TerminationChart({ games }: Props) {
 
   const data = Array.from(counts.entries())
     .sort(([, a], [, b]) => b - a)
-    .map(([name, value]) => ({ name, value }))
+    .map(([key, value]) => ({ name: t.terminations[key] ?? key, value }))
 
   if (data.length === 0) {
     return (
       <Card>
-        <CardHeader><CardTitle>Ako sa partie končia</CardTitle></CardHeader>
-        <p className="text-center text-sm text-[#4a5568] py-8">Žiadne dáta</p>
+        <CardHeader><CardTitle>🏁 {t.howGamesEnd}</CardTitle></CardHeader>
+        <p className="text-center text-sm text-[#4a5568] py-8">{t.noData}</p>
       </Card>
     )
   }
@@ -39,8 +42,8 @@ export function TerminationChart({ games }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>🏁 Ako sa partie končia</CardTitle>
-        <span className="text-xs text-[#4a5568]">{total} partií</span>
+        <CardTitle>🏁 {t.howGamesEnd}</CardTitle>
+        <span className="text-xs text-[#4a5568]">{total} {t.games}</span>
       </CardHeader>
       <div className="flex items-center gap-2">
         <div className="h-52 flex-1">

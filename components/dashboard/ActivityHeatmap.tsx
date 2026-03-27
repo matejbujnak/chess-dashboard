@@ -2,12 +2,11 @@
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import type { HeatmapCell } from "@/lib/unified/types"
+import { useT } from "@/components/LanguageProvider"
 
 interface Props {
   heatmap: HeatmapCell[]
 }
-
-const DAYS = ["Po", "Ut", "St", "Št", "Pi", "So", "Ne"]
 
 function getIntensity(count: number, max: number): string {
   if (count === 0) return "#1a1f2e"
@@ -20,6 +19,9 @@ function getIntensity(count: number, max: number): string {
 }
 
 export function ActivityHeatmap({ heatmap }: Props) {
+  const { t } = useT()
+  const DAYS = t.days
+
   const max = Math.max(...heatmap.map((c) => c.count), 1)
 
   // Group by day
@@ -33,8 +35,8 @@ export function ActivityHeatmap({ heatmap }: Props) {
   if (totalGames === 0) {
     return (
       <Card>
-        <CardHeader><CardTitle>Aktivita</CardTitle></CardHeader>
-        <p className="text-center text-sm text-subtle py-8">Žiadna aktivita</p>
+        <CardHeader><CardTitle>🔥 {t.activityTitle}</CardTitle></CardHeader>
+        <p className="text-center text-sm text-subtle py-8">{t.noActivity}</p>
       </Card>
     )
   }
@@ -42,8 +44,8 @@ export function ActivityHeatmap({ heatmap }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>🔥 Aktivita (deň × hodina)</CardTitle>
-        <span className="text-xs text-subtle">{totalGames} partií</span>
+        <CardTitle>🔥 {t.activityTitle}</CardTitle>
+        <span className="text-xs text-subtle">{totalGames} {t.games}</span>
       </CardHeader>
       <div className="overflow-x-auto">
         <div className="min-w-[600px]">
@@ -64,7 +66,7 @@ export function ActivityHeatmap({ heatmap }: Props) {
                 {byDay[di].map((count, hour) => (
                   <div
                     key={hour}
-                    title={`${day} ${hour}:00 — ${count} partií`}
+                    title={`${day} ${hour}:00 — ${count} ${t.games}`}
                     className="aspect-square rounded-[2px] cursor-default"
                     style={{ background: getIntensity(count, max) }}
                   />
@@ -75,11 +77,11 @@ export function ActivityHeatmap({ heatmap }: Props) {
 
           {/* Legend */}
           <div className="mt-3 flex items-center justify-end gap-1 text-[10px] text-subtle">
-            <span>Menej</span>
+            <span>{t.less}</span>
             {["#1a1f2e", "#1d3557", "#1a5276", "#1565a0", "#1d6fa5", "#3b82f6"].map((c) => (
               <div key={c} className="h-3 w-4 rounded-[2px]" style={{ background: c }} />
             ))}
-            <span>Viac</span>
+            <span>{t.more}</span>
           </div>
         </div>
       </div>

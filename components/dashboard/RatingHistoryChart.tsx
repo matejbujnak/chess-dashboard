@@ -13,7 +13,8 @@ import {
 } from "recharts"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import type { UnifiedRatingPoint, TimeControl } from "@/lib/unified/types"
-import { format, subMonths, subYears } from "date-fns"
+import { format, subMonths } from "date-fns"
+import { useT } from "@/components/LanguageProvider"
 
 interface Props {
   ratingHistory: UnifiedRatingPoint[]
@@ -26,14 +27,6 @@ const TC_COLORS: Record<string, string> = {
   classical: "#10b981",
   daily: "#8b5cf6",
 }
-
-const RANGES = [
-  { label: "1M", months: 1 },
-  { label: "3M", months: 3 },
-  { label: "6M", months: 6 },
-  { label: "1R", months: 12 },
-  { label: "Všetko", months: 0 },
-]
 
 function buildChartData(points: UnifiedRatingPoint[], selected: TimeControl[], rangeMonths: number) {
   const cutoff = rangeMonths > 0 ? subMonths(new Date(), rangeMonths) : new Date(0)
@@ -62,6 +55,16 @@ function buildChartData(points: UnifiedRatingPoint[], selected: TimeControl[], r
 }
 
 export function RatingHistoryChart({ ratingHistory }: Props) {
+  const { t } = useT()
+
+  const RANGES = [
+    { label: "1M", months: 1 },
+    { label: "3M", months: 3 },
+    { label: "6M", months: 6 },
+    { label: t.rangeYear, months: 12 },
+    { label: t.rangeAll, months: 0 },
+  ]
+
   const availableTcs = [...new Set(ratingHistory.map((p) => p.timeControl))] as TimeControl[]
   const [selected, setSelected] = useState<TimeControl[]>(availableTcs)
   const [range, setRange] = useState(6)
@@ -80,8 +83,8 @@ export function RatingHistoryChart({ ratingHistory }: Props) {
   if (ratingHistory.length === 0) {
     return (
       <Card>
-        <CardHeader><CardTitle>📈 Rating história</CardTitle></CardHeader>
-        <p className="text-center text-sm text-[#4a5568] py-8">Žiadne dáta</p>
+        <CardHeader><CardTitle>📈 {t.ratingHistory}</CardTitle></CardHeader>
+        <p className="text-center text-sm text-[#4a5568] py-8">{t.noData}</p>
       </Card>
     )
   }
@@ -89,7 +92,7 @@ export function RatingHistoryChart({ ratingHistory }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>📈 Rating história</CardTitle>
+        <CardTitle>📈 {t.ratingHistory}</CardTitle>
         <div className="flex flex-wrap items-center gap-2">
           {/* Time range */}
           <div className="flex gap-1">
@@ -129,7 +132,7 @@ export function RatingHistoryChart({ ratingHistory }: Props) {
       </CardHeader>
 
       {data.length < 2 ? (
-        <p className="py-8 text-center text-sm text-[#4a5568]">Málo dát pre zvolené obdobie</p>
+        <p className="py-8 text-center text-sm text-[#4a5568]">{t.notEnoughData}</p>
       ) : (
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">

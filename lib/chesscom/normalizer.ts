@@ -129,10 +129,10 @@ export function normalizeChessComGames(games: ChessComGame[], username: string):
       user.result === "win" ? "win" : user.result === "checkmated" || user.result === "timeout" || user.result === "resigned" || user.result === "abandoned" ? "loss" : "draw"
 
     const terminationMap: Record<string, string> = {
-      win: "win", checkmated: "mat", resigned: "vzdanie", timeout: "čas",
-      agreed: "remíza dohodou", stalemate: "pat", repetition: "opakovanie",
-      insufficient: "nedostatočný materiál", "50move": "pravidlo 50 ťahov",
-      timevsinsufficient: "čas vs mat. nedostatočný", abandoned: "opustená",
+      win: "win", checkmated: "checkmate", resigned: "resignation", timeout: "timeout",
+      agreed: "draw", stalemate: "stalemate", repetition: "repetition",
+      insufficient: "insufficient material", "50move": "50-move rule",
+      timevsinsufficient: "timeout", abandoned: "abandoned",
     }
     const termination = terminationMap[user.result] ?? user.result
 

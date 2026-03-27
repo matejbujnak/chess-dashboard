@@ -17,6 +17,7 @@ import { FormChart } from "./FormChart"
 import { TerminationChart } from "./TerminationChart"
 import { OpponentRatingHistogram } from "./OpponentRatingHistogram"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useT } from "@/components/LanguageProvider"
 import type { DashboardData } from "@/lib/unified/types"
 
 interface Props {
@@ -84,6 +85,7 @@ function DashboardContent({ data }: { data: DashboardData }) {
 
 function SinglePlatformDashboard({ platform, username }: { platform: string; username: string }) {
   const { data, error, isLoading } = useDashboardData(platform, username)
+  const { t } = useT()
 
   if (isLoading) return <LoadingSkeleton />
 
@@ -91,9 +93,9 @@ function SinglePlatformDashboard({ platform, username }: { platform: string; use
     return (
       <div className="flex flex-col items-center gap-3 rounded-xl border border-[#ef4444]/30 bg-[#ef4444]/10 p-8 text-center">
         <span className="text-3xl">⚠️</span>
-        <h3 className="text-lg font-semibold text-foreground">Hráč nenájdený</h3>
+        <h3 className="text-lg font-semibold text-foreground">{t.playerNotFound}</h3>
         <p className="text-sm text-muted">{error.message}</p>
-        <a href="/" className="mt-2 text-sm text-[#3b82f6] hover:underline">← Späť</a>
+        <a href="/" className="mt-2 text-sm text-[#3b82f6] hover:underline">{t.back}</a>
       </div>
     )
   }

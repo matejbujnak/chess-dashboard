@@ -4,12 +4,15 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
 import type { UnifiedGame } from "@/lib/unified/types"
 import { format } from "date-fns"
+import { useT } from "@/components/LanguageProvider"
 
 interface Props {
   games: UnifiedGame[]
 }
 
 export function AccuracyChart({ games }: Props) {
+  const { t } = useT()
+
   const withAccuracy = games
     .filter((g) => g.accuracy !== null)
     .sort((a, b) => a.playedAt.getTime() - b.playedAt.getTime())
@@ -18,9 +21,9 @@ export function AccuracyChart({ games }: Props) {
   if (withAccuracy.length < 5) {
     return (
       <Card>
-        <CardHeader><CardTitle>🎯 Presnosť</CardTitle></CardHeader>
+        <CardHeader><CardTitle>🎯 {t.moveAccuracy}</CardTitle></CardHeader>
         <p className="text-center text-sm text-[#4a5568] py-8">
-          Dáta presnosti dostupné len pre Chess.com
+          {t.accuracyChesscomOnly}
         </p>
       </Card>
     )
@@ -37,9 +40,9 @@ export function AccuracyChart({ games }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>🎯 Presnosť ťahov</CardTitle>
+        <CardTitle>🎯 {t.moveAccuracy}</CardTitle>
         <span className="text-sm text-[#a0aec0]">
-          Priemer: <span className="text-[#3b82f6] font-semibold">{avg.toFixed(1)}%</span>
+          {t.average}: <span className="text-[#3b82f6] font-semibold">{avg.toFixed(1)}%</span>
         </span>
       </CardHeader>
       <div className="h-56">
@@ -51,7 +54,7 @@ export function AccuracyChart({ games }: Props) {
             <ReferenceLine y={avg} stroke="#3b82f6" strokeDasharray="5 5" strokeWidth={1} />
             <Tooltip
               contentStyle={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--foreground)" }}
-              formatter={(v) => [`${v}%`, "Presnosť"]}
+              formatter={(v) => [`${v}%`, t.moveAccuracy]}
             />
             <Line
               type="monotone"

@@ -1,12 +1,16 @@
+"use client"
+
 import { Card } from "@/components/ui/card"
 import { formatNumber } from "@/lib/utils"
 import type { DashboardData } from "@/lib/unified/types"
+import { useT } from "@/components/LanguageProvider"
 
 interface Props {
   data: DashboardData
 }
 
 export function StatsCards({ data }: Props) {
+  const { t } = useT()
   const { games, streaks } = data
   const wins = games.filter((g) => g.result === "win").length
   const losses = games.filter((g) => g.result === "loss").length
@@ -18,24 +22,24 @@ export function StatsCards({ data }: Props) {
       : null
 
   const cards = [
-    { label: "Celkovo partií", value: formatNumber(games.length), icon: "♟", color: "text-accent" },
-    { label: "Výhry", value: formatNumber(wins), icon: "✅", color: "text-success" },
-    { label: "Prehry", value: formatNumber(losses), icon: "❌", color: "text-danger" },
-    { label: "Remízy", value: formatNumber(draws), icon: "🤝", color: "text-muted" },
+    { label: t.totalGames, value: formatNumber(games.length), icon: "♟", color: "text-accent" },
+    { label: t.wins, value: formatNumber(wins), icon: "✅", color: "text-success" },
+    { label: t.losses, value: formatNumber(losses), icon: "❌", color: "text-danger" },
+    { label: t.draws, value: formatNumber(draws), icon: "🤝", color: "text-muted" },
     {
-      label: "Win streak",
+      label: t.winStreak,
       value: streaks.currentWin > 0 ? `${streaks.currentWin}🔥` : "0",
       icon: "🏅",
       color: "text-warning",
     },
     {
-      label: "Unbeaten streak",
+      label: t.unbeatenStreak,
       value: streaks.currentUnbeaten > 0 ? `${streaks.currentUnbeaten}⚡` : "0",
       icon: "🛡",
       color: "text-accent",
     },
     ...(avgAccuracy !== null
-      ? [{ label: "Priem. presnosť", value: `${avgAccuracy.toFixed(1)}%`, icon: "🎯", color: "text-warning" }]
+      ? [{ label: t.avgAccuracy, value: `${avgAccuracy.toFixed(1)}%`, icon: "🎯", color: "text-warning" }]
       : []),
   ]
 

@@ -129,9 +129,9 @@ export function normalizeLichessGames(games: LichessGame[], username: string): U
       const tc: string = g.clock ? `${g.clock.initial}+${g.clock.increment}` : g.speed
 
       const lichessTermMap: Record<string, string> = {
-        mate: "mat", resign: "vzdanie", outoftime: "čas", draw: "remíza",
-        stalemate: "pat", aborted: "zrušená", cheat: "podvod",
-        noStart: "nezačatá", variantEnd: "koniec variantu",
+        mate: "checkmate", resign: "resignation", outoftime: "timeout", draw: "draw",
+        stalemate: "stalemate", aborted: "aborted", cheat: "cheat",
+        noStart: "abandoned", variantEnd: "stalemate",
       }
       const termination = lichessTermMap[g.status] ?? g.status ?? null
 
