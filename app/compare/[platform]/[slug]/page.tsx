@@ -1,7 +1,7 @@
 import { CompareClient } from "@/components/compare/CompareClient"
 import { ThemeToggle } from "@/components/ThemeToggle"
 import { LanguageToggle } from "@/components/LanguageToggle"
-import Link from "next/link"
+import { BackLink } from "@/components/BackLink"
 
 interface Props {
   params: Promise<{ platform: string; slug: string }>
@@ -48,12 +48,7 @@ export default async function ComparePage({ params }: Props) {
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
-          <Link
-            href="/"
-            className="text-sm text-muted hover:text-foreground transition-colors"
-          >
-            ← Back
-          </Link>
+          <BackLink />
           <span className="text-sm font-semibold text-foreground">
             {players.a.username} vs {players.b.username}
           </span>

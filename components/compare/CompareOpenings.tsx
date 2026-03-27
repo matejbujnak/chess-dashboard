@@ -36,8 +36,8 @@ function OpeningList({
     <div className="flex-1 rounded-xl border border-border bg-surface p-4">
       <div className="mb-3 text-sm font-semibold" style={{ color }}>{name}</div>
       <div className="space-y-2">
-        {top.map((o) => (
-          <div key={o.eco}>
+        {top.map((o, i) => (
+          <div key={`${o.eco}-${i}`}>
             <div className="flex items-center justify-between text-xs mb-0.5">
               <span className="text-foreground truncate max-w-[160px]" title={o.name}>{o.name}</span>
               <span className="ml-2 shrink-0 text-subtle">{o.games}g · {o.winRate.toFixed(0)}%</span>
