@@ -99,6 +99,26 @@ export const translations = {
     myAverage: "Môj priemer",
     opponentsAverage: "Súperi priemer",
 
+    // Compare
+    compare: "Porovnanie ⚔️",
+    compareTitle: "Porovnanie hráčov",
+    player1: "Hráč 1",
+    player2: "Hráč 2",
+    showComparison: "Porovnať →",
+    vsLabel: "vs",
+    radarTitle: "Celkové porovnanie",
+    ratingCompareTitle: "Ratingy podľa tempa",
+    ratingHistoryCompare: "Rating história — porovnanie",
+    winLossCompare: "Výsledky",
+    openingsCompare: "Top otvárania",
+    winRate: "Win rate",
+    drawRate: "Remízy %",
+    accuracy: "Presnosť",
+    activity: "Aktivita",
+    gamesPlayed: "Partií",
+    noRating: "—",
+    advantage: "Výhoda",
+
     // Error / loading
     playerNotFound: "Hráč nenájdený",
     back: "← Späť",
@@ -221,6 +241,26 @@ export const translations = {
     opponentRatings: "Opponent Ratings",
     myAverage: "My average",
     opponentsAverage: "Opponents average",
+
+    // Compare
+    compare: "Compare ⚔️",
+    compareTitle: "Player Comparison",
+    player1: "Player 1",
+    player2: "Player 2",
+    showComparison: "Compare →",
+    vsLabel: "vs",
+    radarTitle: "Overall Comparison",
+    ratingCompareTitle: "Ratings by Time Control",
+    ratingHistoryCompare: "Rating History — Comparison",
+    winLossCompare: "Results",
+    openingsCompare: "Top Openings",
+    winRate: "Win rate",
+    drawRate: "Draw %",
+    accuracy: "Accuracy",
+    activity: "Activity",
+    gamesPlayed: "Games",
+    noRating: "—",
+    advantage: "Advantage",
 
     // Error / loading
     playerNotFound: "Player not found",
