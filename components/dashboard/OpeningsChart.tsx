@@ -57,20 +57,20 @@ export function OpeningsChart({ openings }: Props) {
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} layout="vertical" margin={{ left: 0, right: 20, top: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#2d3748" horizontal={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" horizontal={false} />
             <XAxis
               type="number"
-              tick={{ fill: "#4a5568", fontSize: 11 }}
+              tick={{ fill: "var(--subtle)", fontSize: 11 }}
               domain={view === "winrate" ? [0, 100] : undefined}
             />
             <YAxis
               type="category"
               dataKey="name"
-              tick={{ fill: "#a0aec0", fontSize: 10 }}
+              tick={{ fill: "var(--muted)", fontSize: 10 }}
               width={130}
             />
             <Tooltip
-              contentStyle={{ background: "#1a1f2e", border: "1px solid #2d3748", borderRadius: 8 }}
+              contentStyle={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--foreground)" }}
               labelFormatter={(_, payload) => payload?.[0]?.payload?.fullName ?? ""}
               formatter={(value, name) =>
                 view === "winrate" ? [`${value}%`, "Win rate"] : [value, "Partií"]

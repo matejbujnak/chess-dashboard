@@ -134,19 +134,19 @@ export function RatingHistoryChart({ ratingHistory }: Props) {
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#2d3748" />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
               <XAxis
                 dataKey="date"
-                tick={{ fill: "#4a5568", fontSize: 10 }}
+                tick={{ fill: "var(--subtle)", fontSize: 10 }}
                 interval={tickInterval}
               />
               <YAxis
-                tick={{ fill: "#4a5568", fontSize: 11 }}
+                tick={{ fill: "var(--subtle)", fontSize: 11 }}
                 domain={["auto", "auto"]}
               />
               <Tooltip
-                contentStyle={{ background: "#1a1f2e", border: "1px solid #2d3748", borderRadius: 8 }}
-                labelStyle={{ color: "#a0aec0" }}
+                contentStyle={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--foreground)" }}
+                labelStyle={{ color: "var(--muted)" }}
                 labelFormatter={(label, payload) => payload?.[0]?.payload?.fullDate ?? label}
               />
               <Legend wrapperStyle={{ fontSize: 12 }} />

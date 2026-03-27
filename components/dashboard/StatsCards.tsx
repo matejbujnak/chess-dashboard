@@ -18,24 +18,24 @@ export function StatsCards({ data }: Props) {
       : null
 
   const cards = [
-    { label: "Celkovo partií", value: formatNumber(games.length), icon: "♟", color: "#3b82f6" },
-    { label: "Výhry", value: formatNumber(wins), icon: "✅", color: "#10b981" },
-    { label: "Prehry", value: formatNumber(losses), icon: "❌", color: "#ef4444" },
-    { label: "Remízy", value: formatNumber(draws), icon: "🤝", color: "#a0aec0" },
+    { label: "Celkovo partií", value: formatNumber(games.length), icon: "♟", color: "text-accent" },
+    { label: "Výhry", value: formatNumber(wins), icon: "✅", color: "text-success" },
+    { label: "Prehry", value: formatNumber(losses), icon: "❌", color: "text-danger" },
+    { label: "Remízy", value: formatNumber(draws), icon: "🤝", color: "text-muted" },
     {
       label: "Win streak",
       value: streaks.currentWin > 0 ? `${streaks.currentWin}🔥` : "0",
       icon: "🏅",
-      color: "#f59e0b",
+      color: "text-warning",
     },
     {
       label: "Unbeaten streak",
       value: streaks.currentUnbeaten > 0 ? `${streaks.currentUnbeaten}⚡` : "0",
       icon: "🛡",
-      color: "#8b5cf6",
+      color: "text-accent",
     },
     ...(avgAccuracy !== null
-      ? [{ label: "Priem. presnosť", value: `${avgAccuracy.toFixed(1)}%`, icon: "🎯", color: "#f59e0b" }]
+      ? [{ label: "Priem. presnosť", value: `${avgAccuracy.toFixed(1)}%`, icon: "🎯", color: "text-warning" }]
       : []),
   ]
 
@@ -44,10 +44,10 @@ export function StatsCards({ data }: Props) {
       {cards.map((card) => (
         <Card key={card.label} className="flex flex-col items-center gap-1 p-4 text-center">
           <span className="text-2xl">{card.icon}</span>
-          <div className="text-xl font-bold" style={{ color: card.color }}>
+          <div className={`text-xl font-bold ${card.color}`}>
             {card.value}
           </div>
-          <div className="text-xs text-[#4a5568]">{card.label}</div>
+          <div className="text-xs text-subtle">{card.label}</div>
         </Card>
       ))}
     </div>

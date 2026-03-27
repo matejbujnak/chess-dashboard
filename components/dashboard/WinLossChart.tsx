@@ -24,7 +24,7 @@ export function WinLossChart({ games }: Props) {
     return (
       <Card>
         <CardHeader><CardTitle>Výsledky</CardTitle></CardHeader>
-        <p className="text-center text-sm text-[#4a5568] py-8">Žiadne partii</p>
+        <p className="text-center text-sm text-subtle py-8">Žiadne partii</p>
       </Card>
     )
   }
@@ -33,7 +33,7 @@ export function WinLossChart({ games }: Props) {
     <Card>
       <CardHeader>
         <CardTitle>🏆 Výsledky partií</CardTitle>
-        <span className="text-xs text-[#4a5568]">{total} partií</span>
+        <span className="text-xs text-subtle">{total} partií</span>
       </CardHeader>
       <div className="flex items-center gap-4">
         <div className="h-48 flex-1">
@@ -53,7 +53,7 @@ export function WinLossChart({ games }: Props) {
                 ))}
               </Pie>
               <Tooltip
-                contentStyle={{ background: "#1a1f2e", border: "1px solid #2d3748", borderRadius: 8 }}
+                contentStyle={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--foreground)" }}
                 formatter={(value, name) => [
                   `${value} (${((Number(value) / total) * 100).toFixed(1)}%)`,
                   name,
@@ -71,8 +71,8 @@ export function WinLossChart({ games }: Props) {
             <div key={item.label} className="flex items-center gap-2">
               <div className="h-3 w-3 rounded-full" style={{ background: item.color }} />
               <div>
-                <div className="text-sm font-semibold text-white">{item.value}</div>
-                <div className="text-xs text-[#a0aec0]">
+                <div className="text-sm font-semibold text-foreground">{item.value}</div>
+                <div className="text-xs text-muted">
                   {item.label} ({((item.value / total) * 100).toFixed(0)}%)
                 </div>
               </div>

@@ -82,14 +82,14 @@ export function FormChart({ games }: Props) {
       <div className="h-56">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#2d3748" />
-            <XAxis dataKey="date" tick={{ fill: "#4a5568", fontSize: 10 }} interval={Math.floor(data.length / 8)} />
-            <YAxis domain={[0, 100]} tick={{ fill: "#4a5568", fontSize: 11 }} tickFormatter={(v) => `${v}%`} />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+            <XAxis dataKey="date" tick={{ fill: "var(--subtle)", fontSize: 10 }} interval={Math.floor(data.length / 8)} />
+            <YAxis domain={[0, 100]} tick={{ fill: "var(--subtle)", fontSize: 11 }} tickFormatter={(v) => `${v}%`} />
             <ReferenceLine y={50} stroke="#4a5568" strokeDasharray="5 5" />
             <Tooltip
-              contentStyle={{ background: "#1a1f2e", border: "1px solid #2d3748", borderRadius: 8 }}
+              contentStyle={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--foreground)" }}
               formatter={(v) => [`${v}%`, `Win rate (posl. ${window})`]}
-              labelStyle={{ color: "#a0aec0" }}
+              labelStyle={{ color: "var(--muted)" }}
             />
             <Line
               type="monotone"

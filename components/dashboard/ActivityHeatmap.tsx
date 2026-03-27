@@ -34,7 +34,7 @@ export function ActivityHeatmap({ heatmap }: Props) {
     return (
       <Card>
         <CardHeader><CardTitle>Aktivita</CardTitle></CardHeader>
-        <p className="text-center text-sm text-[#4a5568] py-8">Žiadna aktivita</p>
+        <p className="text-center text-sm text-subtle py-8">Žiadna aktivita</p>
       </Card>
     )
   }
@@ -43,14 +43,14 @@ export function ActivityHeatmap({ heatmap }: Props) {
     <Card>
       <CardHeader>
         <CardTitle>🔥 Aktivita (deň × hodina)</CardTitle>
-        <span className="text-xs text-[#4a5568]">{totalGames} partií</span>
+        <span className="text-xs text-subtle">{totalGames} partií</span>
       </CardHeader>
       <div className="overflow-x-auto">
         <div className="min-w-[600px]">
           {/* Hour labels */}
           <div className="mb-1 ml-8 grid gap-px" style={{ gridTemplateColumns: "repeat(24, 1fr)" }}>
             {Array.from({ length: 24 }, (_, i) => (
-              <div key={i} className="text-center text-[9px] text-[#4a5568]">
+              <div key={i} className="text-center text-[9px] text-subtle">
                 {i % 3 === 0 ? i : ""}
               </div>
             ))}
@@ -59,7 +59,7 @@ export function ActivityHeatmap({ heatmap }: Props) {
           {/* Grid */}
           {DAYS.map((day, di) => (
             <div key={day} className="mb-px flex items-center gap-1">
-              <div className="w-7 shrink-0 text-right text-[10px] text-[#a0aec0]">{day}</div>
+              <div className="w-7 shrink-0 text-right text-[10px] text-muted">{day}</div>
               <div className="grid flex-1 gap-px" style={{ gridTemplateColumns: "repeat(24, 1fr)" }}>
                 {byDay[di].map((count, hour) => (
                   <div
@@ -74,7 +74,7 @@ export function ActivityHeatmap({ heatmap }: Props) {
           ))}
 
           {/* Legend */}
-          <div className="mt-3 flex items-center justify-end gap-1 text-[10px] text-[#4a5568]">
+          <div className="mt-3 flex items-center justify-end gap-1 text-[10px] text-subtle">
             <span>Menej</span>
             {["#1a1f2e", "#1d3557", "#1a5276", "#1565a0", "#1d6fa5", "#3b82f6"].map((c) => (
               <div key={c} className="h-3 w-4 rounded-[2px]" style={{ background: c }} />

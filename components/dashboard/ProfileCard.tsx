@@ -15,7 +15,7 @@ export function ProfileCard({ player }: Props) {
 
   return (
     <Card className="flex items-center gap-4">
-      <div className="relative">
+      <div className="relative shrink-0">
         <Image
           src={avatarUrl}
           alt={player.username}
@@ -25,30 +25,28 @@ export function ProfileCard({ player }: Props) {
           unoptimized
         />
         {player.isOnline && (
-          <span className="absolute bottom-0.5 right-0.5 h-3 w-3 rounded-full border-2 border-[#1a1f2e] bg-[#10b981]" />
+          <span className="absolute bottom-0.5 right-0.5 h-3 w-3 rounded-full border-2 border-surface bg-success" />
         )}
       </div>
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
-          {player.title && (
-            <Badge variant="warning" className="text-xs">{player.title}</Badge>
-          )}
-          <h2 className="text-xl font-bold text-white truncate">{player.displayName}</h2>
+          {player.title && <Badge variant="warning">{player.title}</Badge>}
+          <h2 className="text-xl font-bold text-foreground truncate">{player.displayName}</h2>
           <Badge variant={player.platform === "chesscom" ? "chesscom" : "lichess"}>
             {player.platform === "chesscom" ? "Chess.com" : "Lichess"}
           </Badge>
         </div>
-        <p className="text-sm text-[#a0aec0]">@{player.username}</p>
+        <p className="text-sm text-muted">@{player.username}</p>
 
-        <div className="mt-2 flex flex-wrap gap-3 text-xs text-[#a0aec0]">
+        <div className="mt-2 flex flex-wrap gap-3 text-xs text-muted">
           {player.country && <span>🌍 {player.country}</span>}
           {player.joinedAt && <span>📅 Člen od {formatDate(player.joinedAt)}</span>}
           {player.followers != null && <span>👥 {formatNumber(player.followers)} sledovateľov</span>}
           {player.lastOnlineAt && !player.isOnline && (
             <span>🕐 Naposledy online {formatDate(player.lastOnlineAt)}</span>
           )}
-          {player.isOnline && <span className="text-[#10b981]">● Online</span>}
+          {player.isOnline && <span className="text-success">● Online</span>}
         </div>
       </div>
 
@@ -56,7 +54,7 @@ export function ProfileCard({ player }: Props) {
         href={player.profileUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="hidden sm:flex shrink-0 items-center gap-1.5 rounded-lg border border-[#2d3748] px-3 py-2 text-xs text-[#a0aec0] transition-colors hover:border-[#4a5568] hover:text-white"
+        className="hidden sm:flex shrink-0 items-center gap-1.5 rounded-lg border border-border px-3 py-2 text-xs text-muted transition-colors hover:border-muted hover:text-foreground"
       >
         Profil →
       </a>

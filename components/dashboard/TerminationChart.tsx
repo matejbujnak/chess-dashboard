@@ -60,7 +60,7 @@ export function TerminationChart({ games }: Props) {
                 ))}
               </Pie>
               <Tooltip
-                contentStyle={{ background: "#1a1f2e", border: "1px solid #2d3748", borderRadius: 8 }}
+                contentStyle={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--foreground)" }}
                 formatter={(value) => [`${value} (${((Number(value) / total) * 100).toFixed(1)}%)`, ""]}
               />
             </PieChart>

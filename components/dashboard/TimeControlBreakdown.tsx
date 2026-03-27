@@ -53,11 +53,11 @@ export function TimeControlBreakdown({ games }: Props) {
       <div className="h-56">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#2d3748" />
-            <XAxis dataKey="tc" tick={{ fill: "#a0aec0", fontSize: 12 }} />
-            <YAxis tick={{ fill: "#4a5568", fontSize: 11 }} />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+            <XAxis dataKey="tc" tick={{ fill: "var(--muted)", fontSize: 12 }} />
+            <YAxis tick={{ fill: "var(--subtle)", fontSize: 11 }} />
             <Tooltip
-              contentStyle={{ background: "#1a1f2e", border: "1px solid #2d3748", borderRadius: 8 }}
+              contentStyle={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--foreground)" }}
             />
             <Bar dataKey="Výhry" fill="#10b981" radius={[4, 4, 0, 0]} stackId="a" />
             <Bar dataKey="Remízy" fill="#a0aec0" stackId="a" />

@@ -91,8 +91,8 @@ function SinglePlatformDashboard({ platform, username }: { platform: string; use
     return (
       <div className="flex flex-col items-center gap-3 rounded-xl border border-[#ef4444]/30 bg-[#ef4444]/10 p-8 text-center">
         <span className="text-3xl">⚠️</span>
-        <h3 className="text-lg font-semibold text-white">Hráč nenájdený</h3>
-        <p className="text-sm text-[#a0aec0]">{error.message}</p>
+        <h3 className="text-lg font-semibold text-foreground">Hráč nenájdený</h3>
+        <p className="text-sm text-muted">{error.message}</p>
         <a href="/" className="mt-2 text-sm text-[#3b82f6] hover:underline">← Späť</a>
       </div>
     )
@@ -111,25 +111,25 @@ function BothPlatformsDashboard({ chesscomUsername, lichessUsername }: { chessco
       <section>
         <div className="mb-4 flex items-center gap-2">
           <div className="h-3 w-3 rounded-full bg-[#7fa650]" />
-          <h2 className="text-lg font-bold text-white">Chess.com — {chesscomUsername}</h2>
+          <h2 className="text-lg font-bold text-foreground">Chess.com — {chesscomUsername}</h2>
         </div>
         {chesscom.isLoading && <LoadingSkeleton />}
         {chesscom.error && (
-          <p className="text-sm text-[#ef4444]">Chyba: {chesscom.error.message}</p>
+          <p className="text-sm text-danger">Chyba: {chesscom.error.message}</p>
         )}
         {chesscom.data && <DashboardContent data={chesscom.data} />}
       </section>
 
-      <div className="border-t border-[#2d3748]" />
+      <div className="border-t border-border" />
 
       <section>
         <div className="mb-4 flex items-center gap-2">
           <div className="h-3 w-3 rounded-full bg-[#b58863]" />
-          <h2 className="text-lg font-bold text-white">Lichess — {lichessUsername}</h2>
+          <h2 className="text-lg font-bold text-foreground">Lichess — {lichessUsername}</h2>
         </div>
         {lichess.isLoading && <LoadingSkeleton />}
         {lichess.error && (
-          <p className="text-sm text-[#ef4444]">Chyba: {lichess.error.message}</p>
+          <p className="text-sm text-danger">Chyba: {lichess.error.message}</p>
         )}
         {lichess.data && <DashboardContent data={lichess.data} />}
       </section>

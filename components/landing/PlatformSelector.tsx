@@ -28,23 +28,23 @@ export function PlatformSelector() {
 
   const tabs: { id: Platform; label: string; color: string; icon: string }[] = [
     { id: "chesscom", label: "Chess.com", color: "#7fa650", icon: "♟" },
-    { id: "lichess", label: "Lichess", color: "#b58863", icon: "♞" },
-    { id: "both", label: "Obe platformy", color: "#3b82f6", icon: "⚡" },
+    { id: "lichess",  label: "Lichess",   color: "#b58863", icon: "♞" },
+    { id: "both",     label: "Obe platformy", color: "#3b82f6", icon: "⚡" },
   ]
+
+  const activeColor = tabs.find((t) => t.id === platform)?.color ?? "#3b82f6"
 
   return (
     <div className="w-full max-w-md">
       {/* Tab selector */}
-      <div className="mb-6 flex rounded-xl border border-[#2d3748] bg-[#1a1f2e] p-1">
+      <div className="mb-6 flex rounded-xl border border-border bg-surface p-1">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setPlatform(tab.id)}
             className={cn(
               "flex flex-1 items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium transition-all",
-              platform === tab.id
-                ? "bg-[#0f1117] text-white shadow-sm"
-                : "text-[#a0aec0] hover:text-white"
+              platform === tab.id ? "bg-background shadow-sm" : "text-muted hover:text-foreground"
             )}
             style={platform === tab.id ? { color: tab.color } : undefined}
           >
@@ -59,31 +59,31 @@ export function PlatformSelector() {
         {platform === "both" ? (
           <>
             <div>
-              <label className="mb-1.5 block text-sm text-[#a0aec0]">Chess.com meno</label>
+              <label className="mb-1.5 block text-sm text-muted">Chess.com meno</label>
               <input
                 type="text"
                 value={usernameChesscom}
                 onChange={(e) => setUsernameChesscom(e.target.value)}
                 placeholder="napr. hikaru"
-                className="w-full rounded-lg border border-[#2d3748] bg-[#0f1117] px-4 py-3 text-white placeholder-[#4a5568] outline-none focus:border-[#7fa650] transition-colors"
+                className="w-full rounded-lg border border-border bg-surface-alt px-4 py-3 text-foreground placeholder-subtle outline-none focus:border-chesscom transition-colors"
                 required
               />
             </div>
             <div>
-              <label className="mb-1.5 block text-sm text-[#a0aec0]">Lichess meno</label>
+              <label className="mb-1.5 block text-sm text-muted">Lichess meno</label>
               <input
                 type="text"
                 value={usernameLichess}
                 onChange={(e) => setUsernameLichess(e.target.value)}
                 placeholder="napr. DrNykterstein"
-                className="w-full rounded-lg border border-[#2d3748] bg-[#0f1117] px-4 py-3 text-white placeholder-[#4a5568] outline-none focus:border-[#b58863] transition-colors"
+                className="w-full rounded-lg border border-border bg-surface-alt px-4 py-3 text-foreground placeholder-subtle outline-none focus:border-lichess transition-colors"
                 required
               />
             </div>
           </>
         ) : (
           <div>
-            <label className="mb-1.5 block text-sm text-[#a0aec0]">
+            <label className="mb-1.5 block text-sm text-muted">
               {platform === "chesscom" ? "Chess.com" : "Lichess"} meno
             </label>
             <input
@@ -91,10 +91,9 @@ export function PlatformSelector() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder={platform === "chesscom" ? "napr. hikaru" : "napr. DrNykterstein"}
-              className="w-full rounded-lg border border-[#2d3748] bg-[#0f1117] px-4 py-3 text-white placeholder-[#4a5568] outline-none transition-colors"
-              style={{ "--focus-color": tabs.find((t) => t.id === platform)?.color } as React.CSSProperties}
-              onFocus={(e) => (e.target.style.borderColor = tabs.find((t) => t.id === platform)?.color ?? "")}
-              onBlur={(e) => (e.target.style.borderColor = "#2d3748")}
+              className="w-full rounded-lg border border-border bg-surface-alt px-4 py-3 text-foreground placeholder-subtle outline-none transition-colors"
+              onFocus={(e) => (e.target.style.borderColor = activeColor)}
+              onBlur={(e) => (e.target.style.borderColor = "")}
               required
             />
           </div>
@@ -104,15 +103,13 @@ export function PlatformSelector() {
           type="submit"
           disabled={loading}
           className="w-full rounded-lg py-3 text-sm font-semibold text-white transition-all disabled:opacity-60 hover:opacity-90 active:scale-95"
-          style={{
-            background: `linear-gradient(135deg, ${tabs.find((t) => t.id === platform)?.color}, ${tabs.find((t) => t.id === platform)?.color}aa)`,
-          }}
+          style={{ background: `linear-gradient(135deg, ${activeColor}, ${activeColor}bb)` }}
         >
           {loading ? "Načítavam..." : "Zobraziť dashboard →"}
         </button>
       </form>
 
-      <p className="mt-4 text-center text-xs text-[#4a5568]">
+      <p className="mt-4 text-center text-xs text-subtle">
         Verejné dáta, nevyžaduje prihlásenie
       </p>
     </div>

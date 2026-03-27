@@ -45,12 +45,12 @@ export function AccuracyChart({ games }: Props) {
       <div className="h-56">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#2d3748" />
-            <XAxis dataKey="date" tick={{ fill: "#4a5568", fontSize: 10 }} interval="preserveStartEnd" />
-            <YAxis domain={[0, 100]} tick={{ fill: "#4a5568", fontSize: 11 }} />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+            <XAxis dataKey="date" tick={{ fill: "var(--subtle)", fontSize: 10 }} interval="preserveStartEnd" />
+            <YAxis domain={[0, 100]} tick={{ fill: "var(--subtle)", fontSize: 11 }} />
             <ReferenceLine y={avg} stroke="#3b82f6" strokeDasharray="5 5" strokeWidth={1} />
             <Tooltip
-              contentStyle={{ background: "#1a1f2e", border: "1px solid #2d3748", borderRadius: 8 }}
+              contentStyle={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 8, color: "var(--foreground)" }}
               formatter={(v) => [`${v}%`, "Presnosť"]}
             />
             <Line
