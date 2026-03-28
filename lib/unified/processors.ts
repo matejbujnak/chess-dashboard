@@ -1,4 +1,4 @@
-import type { UnifiedGame, OpeningStat, HeatmapCell, BestWin, UnifiedRatingPoint } from "./types"
+import type { UnifiedGame, OpeningStat, HeatmapCell, BestWin, UnifiedRatingPoint, ActivityCalendarCell } from "./types"
 
 export function processOpenings(games: UnifiedGame[]): OpeningStat[] {
   const map = new Map<string, OpeningStat>()
@@ -44,6 +44,29 @@ export function processHeatmap(games: UnifiedGame[]): HeatmapCell[] {
       cells.push({ day, hour, count: matrix[day][hour] })
     }
   }
+  return cells
+}
+
+export function processActivityCalendar(games: UnifiedGame[]): ActivityCalendarCell[] {
+  const map = new Map<string, number>()
+  
+  // Only look at games from the last 365 days approximately, or we can just process all
+  // and let the component slice/filter. Here we process them all to be safe.
+  for (const game of games) {
+    const yyyy = game.playedAt.getFullYear()
+    const mm = String(game.playedAt.getMonth() + 1).padStart(2, '0')
+    const dd = String(game.playedAt.getDate()).padStart(2, '0')
+    const dateStr = `${yyyy}-${mm}-${dd}`
+    map.set(dateStr, (map.get(dateStr) ?? 0) + 1)
+  }
+
+  const cells: ActivityCalendarCell[] = []
+  for (const [date, count] of map.entries()) {
+    cells.push({ date, count })
+  }
+  // Sort from oldest to newest
+  cells.sort((a, b) => a.date.localeCompare(b.date))
+  
   return cells
 }
 

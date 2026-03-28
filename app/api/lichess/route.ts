@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server"
 import { fetchLichessUser, fetchLichessRatingHistory, fetchLichessGames, normalizeLichessUser, normalizeLichessRatings, normalizeLichessRatingHistory, normalizeLichessGames } from "@/lib/lichess/normalizer"
-import { processOpenings, processHeatmap, processBestWins, processStreaks } from "@/lib/unified/processors"
+import { processOpenings, processHeatmap, processBestWins, processStreaks, processActivityCalendar } from "@/lib/unified/processors"
 
 export const maxDuration = 30
 
@@ -31,6 +31,7 @@ export async function GET(request: NextRequest) {
       ratingHistory,
       openings: processOpenings(games),
       heatmap: processHeatmap(games),
+      activityCalendar: processActivityCalendar(games),
       bestWins: processBestWins(games),
       streaks: processStreaks(games),
     }

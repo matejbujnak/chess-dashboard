@@ -148,6 +148,10 @@ export const translations = {
     errorOccurred: "Nastala neočakávaná chyba.",
     tryAgain: "Skúsiť znova",
 
+    // Activity Calendar
+    activityCalendarTitle: "Ročný kalendár partií",
+    activityCalendarDesc: "Prehľad aktivity za posledný rok",
+
     // Termination types
     terminations: {
       checkmate: "Mat",
@@ -313,6 +317,10 @@ export const translations = {
     errorOccurred: "An unexpected error occurred.",
     tryAgain: "Try again",
 
+    // Activity Calendar
+    activityCalendarTitle: "Activity Calendar",
+    activityCalendarDesc: "Overview of your games played over the last 365 days",
+
     // Termination types
     terminations: {
       checkmate: "Checkmate",
@@ -476,6 +484,10 @@ export const translations = {
     checkmateTitle: "Schachmatt!",
     errorOccurred: "Ein unerwarteter Fehler ist aufgetreten.",
     tryAgain: "Erneut versuchen",
+
+    // Activity Calendar
+    activityCalendarTitle: "Aktivitätskalender",
+    activityCalendarDesc: "Übersicht der gespielten Partien der letzten 365 Tage",
 
     // Termination types
     terminations: {

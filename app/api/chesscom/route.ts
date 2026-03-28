@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server"
 import { fetchChessComProfile, fetchChessComStats, fetchChessComGames, normalizeChessComProfile, normalizeChessComStats, normalizeChessComGames } from "@/lib/chesscom/normalizer"
-import { processOpenings, processHeatmap, processBestWins, processStreaks, buildRatingHistoryFromGames } from "@/lib/unified/processors"
+import { processOpenings, processHeatmap, processBestWins, processStreaks, buildRatingHistoryFromGames, processActivityCalendar } from "@/lib/unified/processors"
 
 export const maxDuration = 30
 
@@ -30,6 +30,7 @@ export async function GET(request: NextRequest) {
       ratingHistory: buildRatingHistoryFromGames(games),
       openings: processOpenings(games),
       heatmap: processHeatmap(games),
+      activityCalendar: processActivityCalendar(games),
       bestWins: processBestWins(games),
       streaks: processStreaks(games),
     }

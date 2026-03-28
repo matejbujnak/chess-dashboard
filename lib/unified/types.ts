@@ -59,6 +59,11 @@ export interface OpeningStat {
   winRate: number
 }
 
+export interface ActivityCalendarCell {
+  date: string // YYYY-MM-DD
+  count: number // total games played that day
+}
+
 export interface HeatmapCell {
   day: number   // 0=Mon ... 6=Sun
   hour: number  // 0-23
@@ -82,6 +87,7 @@ export interface DashboardData {
   games: UnifiedGame[]
   openings: OpeningStat[]
   heatmap: HeatmapCell[]
+  activityCalendar: ActivityCalendarCell[]
   bestWins: BestWin[]
   streaks: {
     currentWin: number

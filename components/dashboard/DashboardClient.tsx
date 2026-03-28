@@ -8,7 +8,8 @@ import {
   processHeatmap,
   processBestWins,
   processStreaks,
-  buildRatingHistoryFromGames
+  buildRatingHistoryFromGames,
+  processActivityCalendar
 } from "@/lib/unified/processors"
 import { ProfileCard } from "./ProfileCard"
 import { RatingsOverview } from "./RatingsOverview"
@@ -16,6 +17,7 @@ import { RatingHistoryChart } from "./RatingHistoryChart"
 import { WinLossChart } from "./WinLossChart"
 import { OpeningsChart } from "./OpeningsChart"
 import { ActivityHeatmap } from "./ActivityHeatmap"
+import { ActivityCalendar } from "./ActivityCalendar"
 import { AccuracyChart } from "./AccuracyChart"
 import { BestWins } from "./BestWins"
 import { StatsCards } from "./StatsCards"
@@ -70,6 +72,7 @@ function DashboardContentInner({ data }: { data: DashboardData }) {
       ratingHistory: buildRatingHistoryFromGames(games),
       openings: processOpenings(games),
       heatmap: processHeatmap(games),
+      activityCalendar: processActivityCalendar(games),
       bestWins: processBestWins(games),
       streaks: processStreaks(games),
     }
@@ -105,6 +108,7 @@ function DashboardContentInner({ data }: { data: DashboardData }) {
       </div>
 
       <OpeningsChart openings={filtered.openings} games={filtered.games} />
+      <ActivityCalendar activityCalendar={filtered.activityCalendar} />
       <ActivityHeatmap heatmap={filtered.heatmap} />
     </div>
   )

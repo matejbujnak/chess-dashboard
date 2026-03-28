@@ -25,7 +25,7 @@ export function RatingsOverview({ ratings }: Props) {
       <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted">{t.ratingsOverview}</h3>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {sorted.map((r) => (
-          <Card key={r.timeControl} className="flex flex-col gap-1 p-4">
+          <Card key={r.label} className="flex flex-col gap-1 p-4">
             <div className="flex items-center justify-between">
               <span className="text-lg">{TIME_ICONS[r.timeControl] ?? "♟"}</span>
               <span className="text-xs text-subtle">{r.label}</span>
