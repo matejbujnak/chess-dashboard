@@ -135,6 +135,10 @@ export const translations = {
     copyLink: "Skopírovať odkaz",
     copied: "Skopírované!",
     timeControlAll: "Všetky",
+    menuFilter: "Filter",
+    menuShare: "Zdieľať",
+    menuTheme: "Téma",
+    menuLanguage: "Jazyk",
 
     // Error pages
     stalemateTitle: "Pat!",
@@ -296,6 +300,10 @@ export const translations = {
     copyLink: "Copy link",
     copied: "Copied!",
     timeControlAll: "All",
+    menuFilter: "Filter",
+    menuShare: "Share",
+    menuTheme: "Theme",
+    menuLanguage: "Language",
 
     // Error pages
     stalemateTitle: "Stalemate!",
@@ -456,6 +464,10 @@ export const translations = {
     copyLink: "Link kopieren",
     copied: "Kopiert!",
     timeControlAll: "Alle",
+    menuFilter: "Filter",
+    menuShare: "Teilen",
+    menuTheme: "Thema",
+    menuLanguage: "Sprache",
 
     // Error pages
     stalemateTitle: "Patt!",

@@ -4,6 +4,7 @@ import { LanguageToggle } from "@/components/LanguageToggle"
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader"
 import { CopyLinkButton } from "@/components/CopyLinkButton"
 import { TimeControlFilter } from "@/components/TimeControlFilter"
+import { MobileActionMenu } from "@/components/MobileActionMenu"
 import { Suspense } from "react"
 
 interface Props {
@@ -46,20 +47,19 @@ export default async function DashboardPage({ params }: Props) {
           </a>
           <div className="flex items-center gap-3">
             <DashboardHeader platform={platform} displayUsername={displayUsername} />
-            <Suspense fallback={<div className="w-24 h-8 bg-surface rounded-lg animate-pulse" />}>
-              <TimeControlFilter />
-            </Suspense>
+            
+            {/* Desktop Menu */}
             <div className="hidden sm:flex items-center gap-2">
+              <Suspense fallback={<div className="w-24 h-8 bg-surface rounded-lg animate-pulse" />}>
+                <TimeControlFilter />
+              </Suspense>
               <CopyLinkButton />
               <LanguageToggle />
               <ThemeToggle />
             </div>
-            {/* Mobile menu could be here, but for now just show icons */}
-            <div className="flex sm:hidden items-center gap-2">
-              <CopyLinkButton />
-              <LanguageToggle />
-              <ThemeToggle />
-            </div>
+
+            {/* Mobile Menu */}
+            <MobileActionMenu />
           </div>
         </div>
       </header>
